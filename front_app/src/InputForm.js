@@ -5,15 +5,12 @@ function InputForm() {
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
-      const response = await api.post("/convert", {
-        input_string: inputString
-      });
-      setResult(response.data.predict);
+        const response = await api.post("/convert", { "input_string": inputString });
+        setResult(response.data);
     } catch (error) {
-      setResult("Error: " + error.message);
+      console.error("Error:", error);
     }
   };
 
@@ -27,7 +24,7 @@ function InputForm() {
           value={inputString}
           onChange={(e) => setInputString(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       <p>{result}</p>
     </div>
