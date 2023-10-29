@@ -4,12 +4,20 @@ import joblib
 import gensim
 import numpy as np
 import pandas as pd
+from fastapi.middleware.cors import CORSMiddleware 
 
 
 
 app = FastAPI()
 
+origins =[
+    "http://localhost:3000",
+]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+)
     
 modelw = modelPro.getModel()
 tfidf_model =  joblib.load("modelLR.joblib")
@@ -17,6 +25,7 @@ tfidf_model =  joblib.load("modelLR.joblib")
 @app.post("/convert")
 def predict_item(input_data: dict):    
     input_string = input_data.get("input_string")
+    print (input_string)
     if input_string is None:
         return {"error": "Input string not provided."}
     try:
