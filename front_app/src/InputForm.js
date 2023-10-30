@@ -1,32 +1,41 @@
 import React, { useState } from "react";
-import api from "./api";
+import axios from "axios";
+import "./InputForm.css"
 
 function InputForm() {
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-        const response = await api.post("/convert", { "input_string": inputString });
-        setResult(response.data);
+      const response = await axios.post("http://127.0.0.1:8000/convert", { "input_string": inputString });
+      setResult(response.data.predict);
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  const handleInputChange = ((e) => {
+		const newName = e.target.value;
+		setInputString(newName);
+	});
+
+
   return (
-    <div>
-      <h1>A que ODS pertenece?</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="centered-container">
+      <h1>Ingresa el texto al que le quieres realizar la prediccion de a cual ODS corresponde</h1>
+      <form >
         <input
           type="text"
           placeholder="Enter input string"
           value={inputString}
-          onChange={(e) => setInputString(e.target.value)}
+          onChange={handleInputChange}
+          className="custom-input"
         />
-        <button type="submit" onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
-      <p>{result}</p>
+      <p className="result-text">Result: {result}</p>
     </div>
   );
 }

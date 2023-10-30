@@ -17,6 +17,9 @@ origins =[
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
     
 modelw = modelPro.getModel()
@@ -25,7 +28,6 @@ tfidf_model =  joblib.load("modelLR.joblib")
 @app.post("/convert")
 def predict_item(input_data: dict):    
     input_string = input_data.get("input_string")
-    print (input_string)
     if input_string is None:
         return {"error": "Input string not provided."}
     try:

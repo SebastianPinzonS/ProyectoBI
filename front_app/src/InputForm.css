@@ -1,0 +1,37 @@
+/* YourComponent.css */
+.centered-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centers content vertically */
+  }
+  
+  input {
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #0074d9;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .result-text {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+.custom-input {
+    display: flex;
+    width :"auto"; /* Set the desired width in pixels or other units */
+    height: "auto"; /* Set the desired height in pixels or other units */
+    padding: 10px; 
+  }
